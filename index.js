@@ -8,7 +8,10 @@ var otherTile;
 
 var turns = 0;
 
+var imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+/*
 var imgOrder = ["6", "3", "7", "2", "1", "8", "5", "9", "4"];
+*/
 
 window.onload = function() {
     for (let r=0; r < rows; r++) {
