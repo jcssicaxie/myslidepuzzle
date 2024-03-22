@@ -1,23 +1,24 @@
 console.log("test")
 
-var rows = 3;
-var columns = 3;
+const rows = 3;
+const columns = 3;
 
-var currTile;
-var otherTile;
+let currTile;
+let otherTile;
 
-var turns = 0;
+let turns = 0;
 
-var imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+let imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
 /*
-var imgOrder = ["6", "3", "7", "2", "1", "8", "5", "9", "4"];
+let imgOrder = ["6", "3", "7", "2", "1", "8", "5", "9", "4"];
 */
 
 window.onload = function() {
     for (let r=0; r < rows; r++) {
         for (let c=0; c < columns; c++) {
 
-            let tile = document.createElement("img");
+            let tile = document.createElement("img"); /* tile is een jpg */
             tile.id = r.toString() + "-" + c.toString();
             tile.src = imgOrder.shift() + ".jpg";
 
@@ -98,7 +99,8 @@ function restartGame() {
     document.getElementById("turns").innerText = turns;
 
     imgOrder = ["6", "3", "7", "2", "1", "8", "5", "9", "4"];
-    var tiles = document.querySelectorAll("#board img");
+    
+    const tiles = document.querySelectorAll("#board img");
     for (let i = 0; i < tiles.length; i++) {
         tiles[i].src = imgOrder[i] + ".jpg";
     }
