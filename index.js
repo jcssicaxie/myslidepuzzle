@@ -7,7 +7,7 @@ let turns = 0;
 let imgOrder = ["6", "3", "7", "2", "1", "8", "5", "9", "4"];
 
 // ChatGPT
-// Prompt: hoe voeg je een shuffleknop toe?
+// Prompt: hoe voeg je een shufflefunctie toe?
 function shuffleTiles() {
     for (let i = imgOrder.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
