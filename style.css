@@ -26,10 +26,3 @@ body {
     height: 118px;
     border: 1px solid papayawhip;
 }
-
-#restartButton {
-    width: 60px;
-    height: 25px;
-    background-color: papayawhip;
-    border: 2px solid white;
-}

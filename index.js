@@ -1,28 +1,30 @@
-console.log("test")
-
+// code gebaseerd op https://www.youtube.com/watch?v=sD3Os4H_EOU&t=151s 
 const rows = 3;
 const columns = 3;
 
-let currTile;
-let otherTile;
-
 let turns = 0;
-
-let imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-/*
+// let imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 let imgOrder = ["6", "3", "7", "2", "1", "8", "5", "9", "4"];
-*/
+
+// ChatGPT
+// Prompt: hoe voeg je een shuffleknop toe?
+function shuffleTiles() {
+    for (let i = imgOrder.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [imgOrder[i], imgOrder[j]] = [imgOrder[j], imgOrder[i]];
+    }
+}
 
 window.onload = function() {
-    for (let r=0; r < rows; r++) {
-        for (let c=0; c < columns; c++) {
+    shuffleTiles(); 
 
-            let tile = document.createElement("img"); /* tile is een jpg */
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+
+            let tile = document.createElement("img");
             tile.id = r.toString() + "-" + c.toString();
             tile.src = imgOrder.shift() + ".jpg";
 
-            // drag function
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
             tile.addEventListener("dragenter", dragEnter);
@@ -36,7 +38,7 @@ window.onload = function() {
 }
 
 function dragStart() {
-    currTile = this; 
+    currentTile = this;
 }
 
 function dragOver(e) {
@@ -48,11 +50,11 @@ function dragEnter(e) {
 }
 
 function dragLeave() {
-    
+
 }
 
 function dragDrop() {
-    otherTile = this; 
+    otherTile = this;
 }
 
 function dragEnd() {
@@ -60,13 +62,13 @@ function dragEnd() {
         return;
     }
 
-    let currCoords = currTile.id.split("-");
-    let r = parseInt(currCoords[0]);
-    let c = parseInt(currCoords[1]);
+    let currentCoords = currentTile.id.split("-");
+    let r = parseInt(currentCoords[0]);
+    let c = parseInt(currentCoords[1]);
 
     let otherCoords = otherTile.id.split("-");
     let r2 = parseInt(otherCoords[0]);
-    let c2 = parseInt(otherCoords[1]);
+    let c2= parseInt(otherCoords[1]);
 
     let moveLeft = r == r2 && c2 == c-1;
     let moveRight = r == r2 && c2 == c+1;
@@ -74,35 +76,16 @@ function dragEnd() {
     let moveUp = c == c2 && r2 == r-1;
     let moveDown = c == c2 && r2 == r+1;
 
-    let isNear = moveLeft || moveRight || moveUp || moveDown;
+    let isNext = moveLeft || moveRight || moveUp || moveDown;
 
-    if (isNear) {
-        let currImg = currTile.src;
+        if (isNext) { 
+        let currentImg = currentTile.src;
         let otherImg = otherTile.src;
 
-        currTile.src = otherImg;
-        otherTile.src = currImg;
+        currentTile.src = otherImg;
+        otherTile.src = currentImg
 
         turns += 1;
         document.getElementById("turns").innerText = turns;
     }
-
-    document.getElementById("restartButton").addEventListener("click", function() {
-        restartGame();
-
-    });
-
-}
-
-function restartGame() {
-    turns = 0;
-    document.getElementById("turns").innerText = turns;
-
-    imgOrder = ["6", "3", "7", "2", "1", "8", "5", "9", "4"];
-    
-    const tiles = document.querySelectorAll("#board img");
-    for (let i = 0; i < tiles.length; i++) {
-        tiles[i].src = imgOrder[i] + ".jpg";
-    }
-
-}
+} 
