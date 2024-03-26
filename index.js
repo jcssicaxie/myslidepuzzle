@@ -28,7 +28,6 @@ window.onload = function() {
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
             tile.addEventListener("dragenter", dragEnter);
-            tile.addEventListener("dragleave", dragLeave);
             tile.addEventListener("drop", dragDrop);
             tile.addEventListener("dragend", dragEnd);
 
@@ -47,10 +46,6 @@ function dragOver(e) {
 
 function dragEnter(e) {
     e.preventDefault();
-}
-
-function dragLeave() {
-
 }
 
 function dragDrop() {
