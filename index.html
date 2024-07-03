@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinnamoroll Puzzle</title>
+    <title>Cinnamotchi</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <img id="logo" src="cinnamoroll_logo2.gif" alt="cinnamorol logo">
-    <!-- https://44.media.tumblr.com/223fd7fb617b0d6cddea6ba9b0789bb9/6d267f961c6773fa-2d/s500x750_f1/0ea131a88b95d374529bba4de3b6ffdf78cff779.gif -->
-    <div id="board"></div>
-    <!-- puzzle img: https://i.pinimg.com/564x/ad/f9/8d/adf98dadebbce29ac8fc785b49b147fc.jpg -->
-        <h1>Turns: <span id="turns">0</span></h1>
+
+    <main>
+        <img src="imgs/cinnamotchi.jpeg" alt="sanrio cinnamoroll">
+
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
+
+        <div class="button-container">
+            <button id="eatBtn">Eat</button>
+            <button id="sleepBtn">Sleep</button>
+            <button id="flyBtn">Fly</button>
+            <button id="vibeBtn">Vibe</button>
+        </div>
+
+        <div class="resetbutton">
+            <button id="resetBtn">Reset</button>
+        </div>
+    </main>
+
+    <audio id="eatSound" src="audio/cinnamonroll-mono-cinnamonroll-101soundboards.mp3"></audio>
+    <audio id="sleepSound" src="audio/cinnamonroll-mono-cinnamonroll-101soundboards.mp3"></audio>
+    <audio id="flySound" src="audio/tole-tole-cinnamoroll-sanrio-101soundboards.mp3"></audio>
+    <audio id="vibeSound" src="audio/cinnamonroll-mono-cinnamonroll-101soundboards.mp3"></audio>
+    
     <script src="index.js"></script>
 </body>
 

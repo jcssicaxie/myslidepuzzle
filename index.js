@@ -1,86 +1,74 @@
-// code gebaseerd op https://www.youtube.com/watch?v=sD3Os4H_EOU&t=151s 
-const rows = 3;
-const columns = 3;
+document.addEventListener('DOMContentLoaded', function() {
+    const cinnamotchi = 'imgs/cinnamotchi.jpeg';
+    let progress = 0;
 
-let turns = 0;
-// let imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-let imgOrder = ["6", "3", "7", "2", "1", "8", "5", "9", "4"];
+    //BRON: https://noaheakin.medium.com/adding-sound-to-your-js-web-app-f6a0ca728984
+    const eatSound = document.getElementById('eatSound');
+    const sleepSound = document.getElementById('sleepSound');
+    const flySound = document.getElementById('flySound');
+    const vibeSound = document.getElementById('vibeSound');
 
-// ChatGPT
-// Prompt: hoe voeg je een shufflefunctie toe?
-function shuffleTiles() {
-    for (let i = imgOrder.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [imgOrder[i], imgOrder[j]] = [imgOrder[j], imgOrder[i]];
-    }
-}
-
-window.onload = function() {
-    shuffleTiles(); 
-
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < columns; c++) {
-
-            let tile = document.createElement("img");
-            tile.id = r.toString() + "-" + c.toString();
-            tile.src = imgOrder.shift() + ".jpg";
-
-            tile.addEventListener("dragstart", dragStart);
-            tile.addEventListener("dragover", dragOver);
-            tile.addEventListener("dragenter", dragEnter);
-            tile.addEventListener("drop", dragDrop);
-            tile.addEventListener("dragend", dragEnd);
-
-            document.getElementById("board").append(tile);
+    //ChatGPT
+    //Prompt: Hoe zorg ik ervoor dat cinnamotchi.jpg default wordt?
+    function resetImage() {
+        if (progress < 100) {
+            document.querySelector('img').src = cinnamotchi;
         }
     }
-}
 
-function dragStart() {
-    currentTile = this;
-}
-
-function dragOver(e) {
-    e.preventDefault();
-}
-
-function dragEnter(e) {
-    e.preventDefault();
-}
-
-function dragDrop() {
-    otherTile = this;
-}
-
-function dragEnd() {
-    if (!otherTile.src.includes("1.jpg")) {
-        return;
+    function increaseProgress() {
+        let bar = document.getElementById("myBar");
+        if (progress < 100) {
+            progress += 10;
+            bar.style.width = progress + '%';
+            if (progress === 100) {
+                document.querySelector('img').src = 'imgs/yay.jpeg';
+            }
+        }
     }
 
-    let currentCoords = currentTile.id.split("-");
-    let r = parseInt(currentCoords[0]);
-    let c = parseInt(currentCoords[1]);
-
-    let otherCoords = otherTile.id.split("-");
-    let r2 = parseInt(otherCoords[0]);
-    let c2= parseInt(otherCoords[1]);
-
-    let moveLeft = r == r2 && c2 == c-1;
-    let moveRight = r == r2 && c2 == c+1;
-
-    let moveUp = c == c2 && r2 == r-1;
-    let moveDown = c == c2 && r2 == r+1;
-
-    let isNext = moveLeft || moveRight || moveUp || moveDown;
-
-        if (isNext) { 
-        let currentImg = currentTile.src;
-        let otherImg = otherTile.src;
-
-        currentTile.src = otherImg;
-        otherTile.src = currentImg
-
-        turns += 1;
-        document.getElementById("turns").innerText = turns;
+    function playSound(audio) {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.play();
     }
-} 
+
+    document.getElementById('eatBtn').addEventListener('click', function() {
+        console.log("Cinnamotchi is eating!");
+        document.querySelector('img').src = 'imgs/eat.jpeg';
+        playSound(eatSound);
+        increaseProgress();
+        setTimeout(resetImage, 1000);
+    });
+
+    document.getElementById('sleepBtn').addEventListener('click', function() {
+        console.log("Cinnamotchi is sleeping!");
+        document.querySelector('img').src = 'imgs/sleep.jpeg';
+        playSound(sleepSound);
+        increaseProgress();
+        setTimeout(resetImage, 1000);
+    });
+
+    document.getElementById('flyBtn').addEventListener('click', function() {
+        console.log("Cinnamotchi is flying!");
+        document.querySelector('img').src = 'imgs/fly.jpeg';
+        playSound(flySound);
+        increaseProgress();
+        setTimeout(resetImage, 1000);
+    });
+
+    document.getElementById('vibeBtn').addEventListener('click', function() {
+        console.log("Cinnamotchi is vibing!");
+        document.querySelector('img').src = 'imgs/music.jpeg';
+        playSound(vibeSound);
+        increaseProgress();
+        setTimeout(resetImage, 1000);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', function() {
+        console.log("Resetting Cinnamoroll!");
+        progress = 0;
+        document.getElementById("myBar").style.width = '0%';
+        document.querySelector('img').src = cinnamotchi;
+    });
+});
